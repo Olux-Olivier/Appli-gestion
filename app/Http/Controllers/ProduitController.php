@@ -12,7 +12,8 @@ class ProduitController extends Controller
      */
     public function index()
     {
-        return view('produit.create');
+        $produits = Produit::all();
+        return view('produit.index', compact('produits')    );
     }
 
     /**
@@ -20,7 +21,7 @@ class ProduitController extends Controller
      */
     public function create()
     {
-
+        return view('produit.create');
     }
 
     /**
@@ -33,7 +34,7 @@ class ProduitController extends Controller
             'prix_unitaire'=> $request->prix_unitaire,
             'qte_stock' => $request-> qte_stock
         ]);
-        return redirect()->route('produit.index')->with(['success' => 'Le produit a ete Produit ajouté avec succes !']);
+        return redirect()->route('produit.create')->with(['success' => 'Le produit a ete Produit ajouté avec succes !']);
     }
 
     /**
@@ -41,8 +42,7 @@ class ProduitController extends Controller
      */
     public function show()
     {
-        $produits = Produit::all();
-        return view('produit.show', compact('produits'));
+
     }
 
     /**
@@ -66,6 +66,8 @@ class ProduitController extends Controller
      */
     public function destroy(Produit $produit)
     {
-        //
+        $produit->delete();
+
+        return redirect()->route('produit.index')->with(['success' => 'Le produit a ete supprimer avec succes !']);
     }
 }
