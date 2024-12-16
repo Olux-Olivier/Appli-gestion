@@ -12,7 +12,7 @@ class ProduitController extends Controller
      */
     public function index()
     {
-        //
+        return view('produit.create');
     }
 
     /**
@@ -20,7 +20,7 @@ class ProduitController extends Controller
      */
     public function create()
     {
-        //
+
     }
 
     /**
@@ -28,16 +28,21 @@ class ProduitController extends Controller
      */
     public function store(Request $request)
     {
-        Produit::create(['nom', 'prix_unitaire','qte_stock' => $request->produit]);
-        return redirect()->route('Produit.create')->with(['success' => 'Produit ajouté avce succes !']);
+        Produit::create([
+            'nom' => $request->nom,
+            'prix_unitaire'=> $request->prix_unitaire,
+            'qte_stock' => $request-> qte_stock
+        ]);
+        return redirect()->route('produit.index')->with(['success' => 'Le produit a ete Produit ajouté avec succes !']);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Produit $produit)
+    public function show()
     {
-        //
+        $produits = Produit::all();
+        return view('produit.show', compact('produits'));
     }
 
     /**

@@ -23,19 +23,25 @@
 
 <body>
     <div class="form-container">
+        @if(session('success'))
+            <div class="alert alert-success alert-dismissible fade show d-flex justify-content-center mx-auto" role="alert" style="width: fit-content;">
+                {{ session('success') }}
+            </div>
+        @endif
         <h2 class="text-center">Ajouter un Produit</h2>
-        <form>
+        <form method="POST" action="">
+            @csrf
             <div class="form-group">
                 <label for="productName">Nom du Produit</label>
-                <input type="text" class="form-control" id="productName" placeholder="Entrez le nom du produit" required>
+                <input type="text" class="form-control" name="nom" id="productName" placeholder="Entrez le nom du produit" required>
             </div>
             <div class="form-group">
                 <label for="unitPrice">Prix Unitaire (par kg)</label>
-                <input type="number" class="form-control" id="unitPrice" placeholder="Entrez le prix unitaire" required>
+                <input type="number" name="prix_unitaire" class="form-control" id="unitPrice" placeholder="Entrez le prix unitaire" required>
             </div>
             <div class="form-group">
                 <label for="quantity">Quantité à Mettre en Stock</label>
-                <input type="number" class="form-control" id="quantity" placeholder="Entrez la quantité" required>
+                <input type="number" name="qte_stock" class="form-control" id="quantity" placeholder="Entrez la quantité" required>
             </div>
             <button type="submit" class="btn btn-primary">Ajouter le Produit</button>
         </form>
