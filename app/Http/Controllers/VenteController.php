@@ -31,7 +31,7 @@ class VenteController extends Controller
     public function store(Request $request)
     {
 
-        dd('store vente');
+        dd($request->all());
     }
 
     /**

@@ -176,6 +176,44 @@
                     inputNumber.value = '';
                     totalField.value = '';
                 });
+
+                submitOrderButton.addEventListener('click', () => {
+                    if (products.length === 0) {
+                        alert('Aucun produit ajouté.');
+                        return;
+                    }
+
+                    const clientName = document.getElementById('productName').value;
+                    if (!clientName) {
+                        alert('Veuillez entrer le nom du client.');
+                        return;
+                    }
+
+                    const data = {
+                        clientName,
+                        products
+                    };
+
+                    // Envoi des données au serveur via fetch
+                    fetch(window.location.origin+"/vente-store", {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': "{{ csrf_token() }}"
+                        },
+                        body: JSON.stringify(data)
+                    })
+                        .then(response => response.json())
+                        .then(response => {
+                            alert('Commande enregistrée avec succès.');
+                            productList.innerHTML = ''; // Réinitialiser le tableau
+                            products = []; // Vider la liste des produits
+                        })
+                        .catch(error => {
+                            console.error('Erreur:', error);
+                            alert('Une erreur est survenue lors de l\'enregistrement.');
+                        });
+                });
             })
         </script>
 @endsection
