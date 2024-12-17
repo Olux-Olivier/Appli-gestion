@@ -5,6 +5,12 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/vente/statistiques', function () {
+    return view('vente.statistiques');
+});
+
+
 Route::resource('produit',\App\Http\Controllers\ProduitController::class);
 Route::get('/produit-destroy/{produit}',[\App\Http\Controllers\ProduitController::class,'destroy']);
 
