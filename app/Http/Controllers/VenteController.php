@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Produit;
 use App\Models\Vente;
 use Illuminate\Http\Request;
 
@@ -12,7 +13,7 @@ class VenteController extends Controller
      */
     public function index()
     {
-        //
+        return view('vente.index');
     }
 
     /**
@@ -20,7 +21,8 @@ class VenteController extends Controller
      */
     public function create()
     {
-        //
+        $produits = Produit::all();
+        return view('vente.create', compact('produits'));
     }
 
     /**
@@ -28,7 +30,8 @@ class VenteController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        dd('store vente');
     }
 
     /**

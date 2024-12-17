@@ -36,7 +36,7 @@
 
     @section('content')
         <div class="form-container">
-            <h2 class="text-center">Ajouter un Produit</h2>
+            <h2 class="text-center">Enregistrer une vente</h2>
             <div class="main">
                 <div class="">
 
@@ -50,6 +50,15 @@
                         <div class="form-group ">
                             <label for="productName">Nom du client</label>
                             <input type="text" class="form-control " name="nom" id="productName" placeholder="Entrez le nom du client" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="dropdown" class=" ">Choisissez un produit</label>
+                            <select class="form-control  shadow-sm" id="dropdown" name="element_id" required>
+                                <option value="" disabled selected>Choisissez un élément</option>
+                                @foreach($produits as $produit)
+                                    <option value="{{ $produit->id }}">{{ $produit->nom }}</option>
+                                @endforeach
+                            </select>
                         </div>
                         <div class="form-group">
                             <label for="unitPrice">Prix Unitaire (par kg)</label>
