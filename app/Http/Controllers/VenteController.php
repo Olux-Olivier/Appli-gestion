@@ -65,4 +65,9 @@ class VenteController extends Controller
     {
         //
     }
+
+    public function statistiques()
+    {
+        return view('vente.statistiques');
+    }
 }

@@ -53,8 +53,8 @@
                         </div>
                         <div class="form-group">
                             <label for="dropdown" class=" ">Choisissez un produit</label>
-                            <select class="form-control  shadow-sm" id="dropdown" name="element_id" required>
-                                <option value="" disabled selected>Choisissez un élément</option>
+                            <select class="form-control  shadow-sm" id="dropdown" name="produit_id" required>
+                                <option value="" data disabled selected>Choisissez un produit</option>
                                 @foreach($produits as $produit)
                                     <option value="{{ $produit->id }}">{{ $produit->nom }}</option>
                                 @endforeach
@@ -62,11 +62,15 @@
                         </div>
                         <div class="form-group">
                             <label for="unitPrice">Prix Unitaire (par kg)</label>
-                            <input type="number" name="prix_unitaire" class="form-control" id="unitPrice" placeholder="Entrez le prix unitaire" required>
+                            <input type="number" name="prix_unitaire" class="form-control" id="unitPrice" placeholder="..." readonly>
                         </div>
                         <div class="form-group">
                             <label for="quantity">Quantité à Mettre en Stock</label>
                             <input type="number" name="qte_stock" class="form-control" id="quantity" placeholder="Entrez la quantité" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="quantity">Prix total</label>
+                            <input type="number" name="qte_stock" class="form-control" id="quantity" placeholder="Entrez la quantité" readonly>
                         </div>
                         <button type="submit" class="btn btn-primary">Ajouter le Produit</button>
                     </form>
@@ -80,4 +84,7 @@
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <script >
+
+        </script>
 @endsection
