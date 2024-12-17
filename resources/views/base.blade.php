@@ -46,7 +46,7 @@
             <li class="mt-2"><a href="{{ route('produit.create') }}" class="btn ">Ajouter un Produit</a></li>
             <li class="mt-2"><a href="{{ route('vente.create')}}" class="btn ">Enregistrer une Vente</a></li>
             <li class="mt-2"><a href="{{ route('produit.index') }}" class="btn">Voir les Produits</a></li>
-            <li class="mt-2"><a href="#" class="btn ">Voir les Ventes</a></li>
+            <li class="mt-2"><a href="{{ route('vente.index')}}" class="btn ">Voir les Ventes</a></li>
             <li class="mt-2"><a href="/" class="btn ">Tableau de bord</a></li>
         </ul>
     </div>
