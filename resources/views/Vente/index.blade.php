@@ -42,6 +42,7 @@
                 <th scope="col">Quantité</th>
                 <th scope="col">Prix unitaire</th>
                 <th scope="col">Total</th>
+                <th scope="col">Actions</th>
             </tr>
             </thead>
             <tbody>

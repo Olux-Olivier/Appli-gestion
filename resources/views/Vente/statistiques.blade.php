@@ -2,7 +2,7 @@
 @section('content')
     <div class="container dashboard flex-grow-1">
     <div class="d-flex justify-content-between align-items-center">
-        <h1 class="text-center">Tableau de Bord des Ventes</h1>
+        <h1 class="text-center">Statistiues des ventes</h1>
         <button class="btn btn-danger logout-btn">Déconnexion</button>
     </div>
 
@@ -37,8 +37,8 @@
                 <div class="card-body text-center">
                     <i class="fas fa-chart-line card-icon"></i>
                     <h5 class="card-title">Statistiques de Ventes</h5>
-                    <p class="card-text">Nombre  et Total de ventes par jour, semaine et mois.</p>
-                    <a href="{{ route('vente.statistiques')}}" class="btn btn-primary">Voir les Statistiques</a>
+                    <p class="card-text">Nombre de ventes par jour, semaine et mois.</p>
+                    <a href="#" class="btn btn-primary">Voir les Statistiques</a>
                 </div>
             </div>
         </div>
