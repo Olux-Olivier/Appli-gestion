@@ -8,3 +8,6 @@ Route::get('/', function () {
 Route::resource('produit',\App\Http\Controllers\ProduitController::class);
 Route::get('/produit-destroy/{produit}',[\App\Http\Controllers\ProduitController::class,'destroy']);
 
+Route::resource('vente',\App\Http\Controllers\VenteController::class);
+
+
