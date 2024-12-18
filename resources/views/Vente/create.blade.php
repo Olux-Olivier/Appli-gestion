@@ -88,7 +88,7 @@
                         <table class="table table-bordered " style="width: 100%" id="productList">
                             <thead>
                             <tr>
-                                <th>Produit</th>
+                                <th>Designation</th>
                                 <th>Prix Unitaire</th>
                                 <th>Quantité</th>
                                 <th>Prix Total</th>
