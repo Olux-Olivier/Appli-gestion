@@ -58,7 +58,7 @@
                     <td>{{ $produit->prix_unitaire }}</td>
                     <td>{{ $produit->qte_stock }}</td>
                     <td>
-                        <button class="btn btn-primary btn-sm">Modifier</button>
+                        <a href="{{route('produit.edit', $produit->id)}}" class="btn btn-primary btn-sm">Modifier</a>
                         <button class="btn btn-danger btn-sm" onclick="showModal({{ $produit->id }})">Supprimer</button>
                     </td>
                 </tr>
@@ -159,38 +159,35 @@
 </style>
 
 <script>
-    
+
 </script>
 @endsection
 
 @section('scripts')
     <script>
-        function showModal(productId) {
-        document.getElementById('confirmationModal').style.display = 'flex';
-        // Logic to set up the modal for deletion
-        }
+
 
         function closeModal() {
             document.getElementById('confirmationModal').style.display = 'none';
         }
 
-        //SCRIPT ACTIONS
-        // let currentProductId = null;
+         let currentProductId = null;
 
-        // function showModal(productId) {
-        //     currentProductId = productId;
-        //     document.getElementById('confirmationModal').style.display = 'flex';
-        // }
+         function showModal(productId) {
+             document.getElementById('confirmationModal').style.display = 'flex';
+             currentProductId = productId;
+             document.getElementById('confirmationModal').style.display = 'flex';
+        }
 
         // function closeModal() {
         //     document.getElementById('confirmationModal').style.display = 'none';
         //     currentProductId = null;
         // }
 
-        // document.getElementById('confirmDeleteBtn').addEventListener('click', function () {
-        //     if (currentProductId) {
-        //         window.location.href = `/produit-destroy/${currentProductId}`;
-        //     }
-        // });
+        document.getElementById('confirmDeleteBtn').addEventListener('click', function () {
+             if (currentProductId) {
+                 window.location.href = `/produit-destroy/${currentProductId}`;
+             }
+        });
     </script>
 @endsection

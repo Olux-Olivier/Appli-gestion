@@ -14,8 +14,8 @@
                     <i class="fas fa-clock card-icon" style="font-size: 50px; color: #007bff;"></i>
                     <h5 class="card-title">Aujourd'hui</h5>
                     <ul class="list-unstyled">
-                        <li>Ventes : 30</li>
-                        <li>Montant total : 450 €</li>
+                        <li>Ventes (Factures) : {{ $nombre_vente }}</li>
+                        <li>Montant total : {{ $montant_jour}} CDF</li>
                     </ul>
                 </div>
             </div>

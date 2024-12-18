@@ -32,32 +32,31 @@
             {{ session('success') }}
         </div>
     @endif
-    <h1 class="text-center mb-4">Liste des produits</h1>
+    <h1 class="text-center mb-4">Ventes du jour</h1>
     <table class="table table-striped animated-table">
         <thead class="table-dark">
             <tr>
                 <th scope="col">#</th>
                 <th scope="col">Nom client</th>
                 <th scope="col">Produit vendu</th>
-                <th scope="col">Quantité</th>
+                <th scope="col">Quantité (Kg)</th>
                 <th scope="col">Prix unitaire</th>
                 <th scope="col">Total</th>
-                <th scope="col">Actions</th>
             </tr>
         </thead>
         <tbody>
+        @foreach($ventes as $index => $produit)
             <tr class="animated-row">
-                <th scope="row">1</th>
-                <td>Olivier</td>
-                <td>Saucisse</td>
-                <td>4</td>
-                <td>200</td>
-                <td>800</td>
-                <td>
-                    <button class="btn btn-primary btn-sm">Modifier</button>
-                    <button class="btn btn-danger btn-sm" onclick="showModal()">Supprimer</button>
-                </td>
+                <th scope="row">{{$index + 1}}</th>
+                <td>{{$produit->nomclient}}</td>
+                <td> {{$produit->nom_produit}}</td>
+                <td>{{$produit->qte}} Kg</td>
+                <td>{{$produit->prix_unitaire}}</td>
+                <td>{{$produit->prix_total}}</td>
+
             </tr>
+        @endforeach
+
         </tbody>
     </table>
 </div>
@@ -165,7 +164,7 @@
         function closeModal() {
             document.getElementById('confirmationModal').style.display = 'none';
         }
-    
+
         //SCRIPTS ACTIONS
         // let currentProductId = null;
 

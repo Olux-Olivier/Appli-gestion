@@ -3,7 +3,7 @@
 <div class="container dashboard flex-grow-1">
     <div class="d-flex justify-content-between align-items-center">
         <h1 class="text-center">Tableau de Bord</h1>
-        <button class="btn btn-danger logout-btn">Déconnexion</button>
+        <a href="{{route('logout')}}" class="btn btn-danger logout-btn">Déconnexion</a>
     </div>
 
     <div class="row mt-4">
@@ -26,7 +26,7 @@
                     <i class="fas fa-calendar-day card-icon" style="font-size: 50px; color: #007bff;"></i>
                     <h5 class="card-title">Ventes par Jour</h5>
                     <p class="card-text">Les détails de toutes les ventes réalisées par jour.</p>
-                    <a href="#" class="btn btn-primary">Consulter</a>
+                    <a href="{{route('vente.index')}}" class="btn btn-primary">Consulter</a>
                 </div>
             </div>
         </div>

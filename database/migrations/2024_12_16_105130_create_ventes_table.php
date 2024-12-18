@@ -16,6 +16,7 @@ return new class extends Migration
             $table->id();
             $table->string('nomclient');
             $table->foreignId('produit_id')->constrained()->cascadeOnDelete();
+            $table->string('code_vente');
             $table->float('qte');
             $table->float('prix_unitaire');
             $table->float('prix_total');

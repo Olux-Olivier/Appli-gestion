@@ -13,7 +13,7 @@ class ProduitController extends Controller
     public function index()
     {
         $produits = Produit::all();
-        return view('produit.index', compact('produits')    );
+        return view('produit.index', compact('produits'));
     }
 
     /**
@@ -31,8 +31,8 @@ class ProduitController extends Controller
     {
         Produit::create([
             'nom' => $request->nom,
-            'prix_unitaire'=> $request->prix_unitaire,
-            'qte_stock' => $request-> qte_stock
+            'prix_unitaire' => $request->prix_unitaire,
+            'qte_stock' => $request->qte_stock
         ]);
         return redirect()->route('produit.create')->with(['success' => 'Le produit a ete Produit ajouté avec succes !']);
     }
@@ -50,7 +50,7 @@ class ProduitController extends Controller
      */
     public function edit(Produit $produit)
     {
-        //
+        return view('produit.edit', compact('produit'));
     }
 
     /**
@@ -58,7 +58,19 @@ class ProduitController extends Controller
      */
     public function update(Request $request, Produit $produit)
     {
-        //
+        if ($produit)
+        {
+            // Mettre à jour les informations
+        $produit->nom = $request->nom;
+        $produit->prix_unitaire = $request->prix_unitaire;
+        $produit->qte_stock = $request->qte_stock;
+
+            // Sauvegarder les modifications
+        $produit->save();
+
+            // Rediriger avec un message de succès
+        return redirect()->route('produit.index')->with(['success' => 'Le produit a été mis à jour avec succès !']);
+        }
     }
 
     /**

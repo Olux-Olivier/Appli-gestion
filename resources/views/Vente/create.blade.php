@@ -50,7 +50,7 @@
                                 {{ session('success') }}
                             </div>
                         @endif
-                        <form method="POST" action="{{route('produit.store')}}" class="form" >
+                        <form method="POST" action="{{route('vente.store')}}" class="form" >
                             @csrf
                             <div class="form-group ">
                                 <label for="productName">Nom du client</label>
@@ -78,10 +78,12 @@
                                 <input type="number" name="qte_stock" class="form-control" id="totalField" placeholder="Entrez la quantité" readonly>
                             </div>
                             <button type="button" id="addProduct" class="btn btn-primary">Ajouter le Produit</button>
+
                         </form>
                     </div>
 
                 <div class="main col-md-6">
+
                     <!-- Bloc gauche pour afficher les produits ajoutés -->
                     <div class="">
                         <h4 class="text-center">Produits ajoutés</h4>
@@ -98,7 +100,15 @@
                             <!-- Les produits ajoutés seront insérés ici -->
                             </tbody>
                         </table>
-                        <button id="submitOrder" class="btn btn-success btn-block">Commander</button>
+                        <form action="{{ route('vente.store') }}" method="post">
+                            @csrf
+                            <input type="hidden" name="nom_client" id="hiddenName">
+                            <div id="hiddenFields"></div>
+                            TOTAL FACTURE
+                            <input type="text" name="totalCommande" id="associatedTotalCommandeField" class="form-control" placeholder="0.0"  readonly>
+                            <button type="submit" id="submitOrder" class="btn btn-success btn-block">Valider</button>
+                        </form>
+
                     </div>
                 </div>
 
@@ -118,8 +128,20 @@
                 const addProductButton = document.getElementById('addProduct');
                 const submitOrderButton = document.getElementById('submitOrder');
                 const productList = document.getElementById('productList').querySelector('tbody')
+                const hiddenFields = document.getElementById('hiddenFields');
+
+                const productName = document.getElementById('productName')
+                const hiddenName = document.getElementById('hiddenName')
+                const associatedTotalCommandeField = document.getElementById('associatedTotalCommandeField')
+
+                productName.addEventListener('input',()=>{
+                    hiddenName.value = productName.value
+                })
+
+
 
                 let products = [];
+                let totalCommande = 0;
 
                 dropdown.addEventListener('change', (e)=>{
                     const selectedOption = e.target.options[e.target.selectedIndex]
@@ -139,6 +161,7 @@
                     totalField.value = total.toFixed(2); // Affiche avec deux décimales
                 });
 
+
                 addProductButton.addEventListener('click', () => {
                     const productId = dropdown.value;
                     const productName = dropdown.options[dropdown.selectedIndex].text;
@@ -150,26 +173,56 @@
                         alert('Veuillez remplir tous les champs correctement.');
                         return;
                     }
+                    const existingProductIndex = products.findIndex(p => p.productId === productId);
 
-                    // Ajouter le produit à la liste
-                    products.push({
-                        productId,
-                        productName,
-                        unitPrice,
-                        quantity,
-                        totalPrice
-                    });
+                    if (existingProductIndex !== -1) {
+                        // Remplacer le produit existant
+                        const oldTotalPrice = products[existingProductIndex].totalPrice;
 
-                    // Mettre à jour l'affichage du tableau
-                    const row = document.createElement('tr');
-                    row.innerHTML = `
-                <td>${productName}</td>
-                <td>${unitPrice.toFixed(2)}</td>
-                <td>${quantity}</td>
-                <td>${totalPrice.toFixed(2)}</td>
-            `;
-                    productList.appendChild(row);
+                        products[existingProductIndex] = { productId, productName, unitPrice, quantity, totalPrice };
+                        // Mettre à jour la ligne correspondante dans le tableau
+                        const row = productList.children[existingProductIndex];
+                        row.innerHTML = `
+                            <td>${productName}</td>
+                            <td>${unitPrice.toFixed(2)}</td>
+                            <td>${quantity}</td>
+                            <td>${totalPrice.toFixed(2)}</td>
+                        `;
 
+                        const hiddenField = hiddenFields.querySelector(`input[name="products[${productId}][total_price]"]`);
+                        if (hiddenField) {
+                            hiddenField.value = products[existingProductIndex].totalPrice.toFixed(2);
+                        }
+
+                        totalCommande = totalCommande - oldTotalPrice + products[existingProductIndex].totalPrice;
+                        associatedTotalCommandeField.value = totalCommande
+                    } else {
+                        // Ajouter le produit à la liste
+                        products.push({ productId, productName, unitPrice, quantity, totalPrice });
+
+                        totalCommande += totalPrice;
+                        associatedTotalCommandeField.value = totalCommande
+                        // Mettre à jour l'affichage du tableau
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td>${productName}</td>
+                            <td>${unitPrice.toFixed(2)}</td>
+                            <td>${quantity}</td>
+                            <td>${totalPrice.toFixed(2)}</td>
+                        `;
+                        productList.appendChild(row);
+
+                        const fields = `
+                            <input type="hidden" name="products[${productId}][name]" value="${productName}">
+                            <input type="hidden" name="products[${productId}][unit_price]" value="${unitPrice}">
+                            <input type="hidden" name="products[${productId}][quantity]" value="${quantity}">
+                            <input type="hidden" name="products[${productId}][total_price]" value="${totalPrice}">
+                            <input type="hidden" name="products[${productId}][id]" value="${productId}"/>
+                        `;
+                        hiddenFields.innerHTML += fields;
+                    }
+
+                    const totalCommandeField = document.getElementById('total_commande')
                     // Réinitialiser le formulaire
                     dropdown.value = '';
                     associatedField.value = '';
@@ -177,43 +230,6 @@
                     totalField.value = '';
                 });
 
-                submitOrderButton.addEventListener('click', () => {
-                    if (products.length === 0) {
-                        alert('Aucun produit ajouté.');
-                        return;
-                    }
-
-                    const clientName = document.getElementById('productName').value;
-                    if (!clientName) {
-                        alert('Veuillez entrer le nom du client.');
-                        return;
-                    }
-
-                    const data = {
-                        clientName,
-                        products
-                    };
-
-                    // Envoi des données au serveur via fetch
-                    fetch(window.location.origin+"/vente-store", {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'X-CSRF-TOKEN': "{{ csrf_token() }}"
-                        },
-                        body: JSON.stringify(data)
-                    })
-                        .then(response => response.json())
-                        .then(response => {
-                            alert('Commande enregistrée avec succès.');
-                            productList.innerHTML = ''; // Réinitialiser le tableau
-                            products = []; // Vider la liste des produits
-                        })
-                        .catch(error => {
-                            console.error('Erreur:', error);
-                            alert('Une erreur est survenue lors de l\'enregistrement.');
-                        });
-                });
             })
         </script>
 @endsection
