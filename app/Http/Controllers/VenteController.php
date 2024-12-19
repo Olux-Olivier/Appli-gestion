@@ -82,13 +82,13 @@ class VenteController extends Controller
 
                 $printer->text("Designation : ". $productName ."\n");
                 $printer->text( "Quantite : ".$quantity ." (kg) \n" );
-                $printer->text( "Prix Unitaire : ".$unitPrice ." CDF\n") ;
-                $printer->text( "Total : ". $total ."\n");
+                $printer->text( "Prix Unitaire : ".number_format( $unitPrice,2, ',',' ') ." CDF\n") ;
+                $printer->text( "Total : ". number_format( $total, 2,',', ' ') ." CDF\n");
                 $printer->text("-------------------------------------\n");
             }
 
             $printer->text("\n");
-            $printer->text("Total a payer : ". $request->totalCommande ." CDF \n");
+            $printer->text("Total a payer : ". number_format( $request->totalCommande, 2,',', ' ') ." CDF \n");
             $printer->text("\n");
             $printer->text("Date : " . date('d/m/Y') . "\n");
             $printer->text("-------------------------------------\n");

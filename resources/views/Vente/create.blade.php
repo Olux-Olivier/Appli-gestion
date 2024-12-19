@@ -138,7 +138,12 @@
                     hiddenName.value = productName.value
                 })
 
-
+                function formatMontant(montant) {
+                    return new Intl.NumberFormat('fr-FR', {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2
+                    }).format(montant);
+                }
 
                 let products = [];
                 let totalCommande = 0;
@@ -201,7 +206,7 @@
                         products.push({ productId, productName, unitPrice, quantity, totalPrice });
 
                         totalCommande += totalPrice;
-                        associatedTotalCommandeField.value = totalCommande
+                        associatedTotalCommandeField.value = formatMontant( totalCommande)
                         // Mettre à jour l'affichage du tableau
                         const row = document.createElement('tr');
                         row.innerHTML = `

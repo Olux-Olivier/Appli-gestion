@@ -15,7 +15,7 @@
                     <h5 class="card-title">Aujourd'hui</h5>
                     <ul class="list-unstyled">
                         <li>Ventes (Factures) : {{ $nombre_vente }}</li>
-                        <li>Montant total : {{ $montant_jour}} CDF</li>
+                        <li>Montant total : {{ number_format( $montant_jour , 2, ',', ' ')}} CDF</li>
                     </ul>
                 </div>
             </div>
@@ -29,7 +29,7 @@
                     <h5 class="card-title">Cette Semaine</h5>
                     <ul class="list-unstyled">
                         <li>Ventes : {{$nombreVenteSemaine}}</li>
-                        <li>Montant total : {{$montant_semaine}} CDF</li>
+                        <li>Montant total : {{ number_format($montant_semaine, 2, ',', ' ') }} CDF</li>
                     </ul>
                 </div>
             </div>
@@ -43,7 +43,7 @@
                     <h5 class="card-title">Ce Mois</h5>
                     <ul class="list-unstyled">
                         <li>Ventes : {{$nombreVenteMois}}</li>
-                        <li>Montant total : {{$montant_mois}} CDF</li>
+                        <li>Montant total : {{number_format( $montant_mois,2, ',', ' ')}} CDF</li>
                     </ul>
                 </div>
             </div>
