@@ -32,7 +32,7 @@
                 {{ session('success') }}
             </div>
         @endif
-            <h1 class="mb-4">Produits les plus vendus</h1>
+            <h1 class="mb-4">Statistiques des produits</h1>
             <table class="table table-bordered table-striped">
                 <thead class="table-dark">
                 <tr>

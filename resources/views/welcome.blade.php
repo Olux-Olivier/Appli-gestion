@@ -50,24 +50,15 @@
             <div class="card text-center animated-card">
                 <div class="card-body">
                     <i class="fas fa-star card-icon" style="font-size: 50px; color: #007bff;"></i>
-                    <h5 class="card-title">Produit le Plus Vendu</h5>
-                    <p class="card-text">Les produits les plus vendus.</p>
+                    <h5 class="card-title">Statistiques produits</h5>
+                    <p class="card-text">Les produits les plus vendus et les moins vendus.</p>
                     <a href="{{route('produit.statistiques')}}" class="btn btn-primary">Consulter</a>
                 </div>
             </div>
         </div>
 
         <!-- Produit le moins vendu -->
-        <div class="col-md-4">
-            <div class="card text-center animated-card">
-                <div class="card-body">
-                    <i class="fas fa-frown card-icon" style="font-size: 50px; color: #007bff;"></i>
-                    <h5 class="card-title">Produit le Moins Vendu</h5>
-                    <p class="card-text">Les produits les moins vendus.</p>
-                    <a href="#" class="btn btn-primary">Consulter</a>
-                </div>
-            </div>
-        </div>
+
     </div>
 </div>
 

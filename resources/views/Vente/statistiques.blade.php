@@ -3,7 +3,7 @@
 <div class="container dashboard flex-grow-1">
     <div class="d-flex justify-content-between align-items-center">
         <h1 class="text-center">Statistiques des ventes</h1>
-        <button class="btn btn-danger logout-btn">Déconnexion</button>
+        <a href="{{route('logout')}}" class="btn btn-danger logout-btn">Déconnexion</a>
     </div>
 
     <div class="row mt-4">
