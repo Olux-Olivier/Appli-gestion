@@ -65,7 +65,7 @@ class VenteController extends Controller
             $printer->setTextSize(2,2);
             $printer->text("Boucherie TROIS R\n");
             $printer->setTextSize(1,1);
-            $printer->text("Addresse : Num 2043, Boulevard katuba, C\ Kamalondo\n");
+            $printer->text("Addresse : Num 540, Route Kipopo, Q\ Golf malela, V\ L'shi\n");
             $printer->setTextSize(2,2);
             $printer->text("------------------------\n");
             $printer->setTextSize(2, 2); // Taille du texte
