@@ -56,7 +56,7 @@ class VenteController extends Controller
 
         try {
             // Nom partagé de l'imprimante (configuré sur votre ordinateur)
-            $connector = new \Mike42\Escpos\PrintConnectors\WindowsPrintConnector("POS-58");
+            $connector = new \Mike42\Escpos\PrintConnectors\WindowsPrintConnector("POS-80");
 
             // Initialisation de l'imprimante
             $printer = new \Mike42\Escpos\Printer($connector);
@@ -86,9 +86,13 @@ class VenteController extends Controller
                 $printer->text( "Total : ". number_format( $total, 2,',', ' ') ." CDF\n");
                 $printer->text("-------------------------------------\n");
             }
+            $totalCommande = str_replace(["\u{202F}", ','], ['', '.'], $request->totalCommande);
+            $totalCommande = (float) $totalCommande;
+
+
 
             $printer->text("\n");
-            $printer->text("Total a payer : ". number_format( $request->totalCommande, 2,',', ' ') ." CDF \n");
+            $printer->text("Total à payer : ". number_format($totalCommande, 2, ',', ' ') ." CDF \n");
             $printer->text("\n");
             $printer->text("Date : " . date('d/m/Y') . "\n");
             $printer->text("-------------------------------------\n");
