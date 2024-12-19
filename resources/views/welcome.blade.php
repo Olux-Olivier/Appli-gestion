@@ -52,7 +52,7 @@
                     <i class="fas fa-star card-icon" style="font-size: 50px; color: #007bff;"></i>
                     <h5 class="card-title">Produit le Plus Vendu</h5>
                     <p class="card-text">Les produits les plus vendus.</p>
-                    <a href="#" class="btn btn-primary">Consulter</a>
+                    <a href="{{route('produit.statistiques')}}" class="btn btn-primary">Consulter</a>
                 </div>
             </div>
         </div>

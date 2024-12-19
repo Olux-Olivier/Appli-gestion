@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Produit;
+use App\Models\Vente;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ProduitController extends Controller
 {
@@ -81,5 +83,13 @@ class ProduitController extends Controller
         $produit->delete();
 
         return redirect()->route('produit.index')->with(['success' => 'Le produit a ete supprimer avec succes !']);
+    }
+
+    public function statistiques(){
+        $produits = Vente::select('produit_id', DB::raw('COUNT(*) as total_ventes'))
+            ->groupBy('produit_id')
+            ->orderByDesc('total_ventes')
+            ->get();
+        return view('produit.statistiques', compact('produits'));
     }
 }

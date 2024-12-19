@@ -5,11 +5,13 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->middleware('auth');
 
 Route::get('/vente/statistiques', function () {
     return view('vente.statistiques');
 })->middleware('auth');
+
+Route::get('/produit/statistiques', [\App\Http\Controllers\ProduitController::class, 'statistiques'])->name('produit.statistiques')->middleware('auth');
 
 
 Route::resource('produit',\App\Http\Controllers\ProduitController::class)->middleware('auth');

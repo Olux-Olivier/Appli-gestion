@@ -22,6 +22,7 @@ class VenteController extends Controller
             ->orderBy('ventes.created_at', 'desc')
             ->get();
 
+
         return view('vente.index', compact('ventes'));
     }
 
@@ -144,6 +145,7 @@ class VenteController extends Controller
         $prix_vente = 0;
         $nombre_vente = 0;
         $montant_jour = 0;
+        $montant_semaine = 0;
         $ancien_code = null;
 
         foreach ($ventes as $vente){
@@ -160,7 +162,45 @@ class VenteController extends Controller
 
 
 
-        return view('vente.statistiques', compact('nombre_vente', 'montant_jour' ));
+        $ancien_code = null;
+
+        $debutSemaine = Carbon::now()->startOfWeek()->toDateString();
+        $finSemaine = Carbon::now()->endOfWeek()->toDateString();
+        $nombreVenteSemaine = 0;
+
+        $venteSemaine = Vente::whereBetween('created_at', [$debutSemaine, $finSemaine])->get();
+
+        foreach ($venteSemaine as $venteS) {
+            if($ancien_code == null){
+                $ancien_code = $venteS->code_vente;
+                $nombreVenteSemaine += 1;
+            }
+            if($venteS->code_vente != $ancien_code){
+                $nombreVenteSemaine += 1;
+                $ancien_code = $venteS->code_vente;
+            }
+            $montant_semaine += $venteS->prix_total;
+        }
+        $ancien_code = null;
+        $debutMois = Carbon::now()->startOfMonth()->toDateString();
+        $finMois = Carbon::now()->endOfMonth()->toDateString();
+        $nombreVenteMois = 0;
+        $montant_mois = 0;
+        $venteMois = Vente::whereBetween('created_at', [$debutMois, $finMois])->get();
+        foreach ($venteMois as $venteM) {
+            if ($ancien_code == null){
+                $ancien_code = $venteM->code_vente;
+                $nombreVenteMois += 1;
+            }
+            if($venteM->code_vente != $ancien_code){
+                $nombreVenteMois += 1;
+                $ancien_code = $venteM->code_vente;
+            }
+            $montant_mois += $venteM->prix_total;
+        }
+
+
+        return view('vente.statistiques', compact('nombre_vente', 'montant_jour', 'montant_semaine', 'nombreVenteSemaine', 'montant_mois', 'nombreVenteMois' ));
     }
 
     public function generateUniqueCode()

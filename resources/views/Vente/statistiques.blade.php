@@ -28,8 +28,8 @@
                     <i class="fas fa-calendar-week card-icon" style="font-size: 50px; color: #007bff;"></i>
                     <h5 class="card-title">Cette Semaine</h5>
                     <ul class="list-unstyled">
-                        <li>Ventes : 150</li>
-                        <li>Montant total : 2 250 €</li>
+                        <li>Ventes : {{$nombreVenteSemaine}}</li>
+                        <li>Montant total : {{$montant_semaine}} CDF</li>
                     </ul>
                 </div>
             </div>
@@ -42,8 +42,8 @@
                     <i class="fas fa-calendar-alt card-icon" style="font-size: 50px; color: #007bff;"></i>
                     <h5 class="card-title">Ce Mois</h5>
                     <ul class="list-unstyled">
-                        <li>Ventes : 600</li>
-                        <li>Montant total : 9 000 €</li>
+                        <li>Ventes : {{$nombreVenteMois}}</li>
+                        <li>Montant total : {{$montant_mois}} CDF</li>
                     </ul>
                 </div>
             </div>
