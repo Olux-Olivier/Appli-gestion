@@ -96,7 +96,7 @@ class VenteController extends Controller
             $printer->text("\n");
             $printer->text("Date : " . date('d/m/Y') . "\n");
             $printer->text("-------------------------------------\n");
-            $printer->text("Merci pour votre achat ". $request->nom_client." !\n");
+            $printer->text("Merci pour votre humble visite  !\n");
             $printer->feed(2); // Ajoute des espaces
             $printer->cut();
 
