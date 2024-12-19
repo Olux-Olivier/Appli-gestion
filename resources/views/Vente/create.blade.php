@@ -54,7 +54,7 @@
                             @csrf
                             <div class="form-group ">
                                 <label for="productName">Nom du client</label>
-                                <input type="text" class="form-control " name="nom" id="productName" placeholder="Entrez le nom du client" required>
+                                <input type="text" class="form-control " name="nom" id="productName"  placeholder="Entrez le nom du client" required>
                             </div>
                             <div class="form-group">
                                 <label for="dropdown" class=" ">Choisissez un produit</label>
@@ -102,7 +102,7 @@
                         </table>
                         <form action="{{ route('vente.store') }}" method="post">
                             @csrf
-                            <input type="hidden" name="nom_client" id="hiddenName">
+                            <input type="hidden" name="nom_client" value="-------" id="hiddenName">
                             <div id="hiddenFields"></div>
                             TOTAL FACTURE
                             <input type="text" name="totalCommande" id="associatedTotalCommandeField" class="form-control" placeholder="0.0"  readonly>

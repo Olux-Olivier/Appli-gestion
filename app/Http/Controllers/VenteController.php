@@ -65,12 +65,12 @@ class VenteController extends Controller
             $printer->setTextSize(2,2);
             $printer->text("Boucherie TROIS R\n");
             $printer->setTextSize(1,1);
-            $printer->text("Addresse : Num 540, Route Kipopo, Q\ Golf malela, V\ L'shi\n");
+            $printer->text("Adresse : Num 540, Route Kipopo, Q\ Golf malela, V\ L'shi\n");
             $printer->setTextSize(2,2);
             $printer->text("------------------------\n");
             $printer->setTextSize(2, 2); // Taille du texte
             $printer->text("\n");
-            $printer->text("Recu de paiement\n");
+            $printer->text("Reçu de paiement\n");
             $printer->text("\n");
             $printer->setTextSize(1, 1);
             $printer->text("Client : ". $request->nom_client."\n");
@@ -80,8 +80,8 @@ class VenteController extends Controller
                 $unitPrice = $product['unit_price'];
                 $total = $product['total_price'];
 
-                $printer->text("Designation : ". $productName ."\n");
-                $printer->text( "Quantite : ".$quantity ." (kg) \n" );
+                $printer->text("Désignation : ". $productName ."\n");
+                $printer->text( "Quantité : ".$quantity ." (kg) \n" );
                 $printer->text( "Prix Unitaire : ".number_format( $unitPrice,2, ',',' ') ." CDF\n") ;
                 $printer->text( "Total : ". number_format( $total, 2,',', ' ') ." CDF\n");
                 $printer->text("-------------------------------------\n");
