@@ -5,8 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Formulaire d'Ajout de Produit</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-
 
     @extends('base')
     @section('styles')
@@ -35,6 +33,25 @@
                 width: 350px;
                 padding:20px;
                 background: #cecece;
+            }
+            .scrollable-table-container {
+                max-height: 600px; /* Adjust height as needed */
+                overflow-y: auto;
+                border: 1px solid #ddd; /* Optional for better visuals */
+                border-radius: 5px;
+            }
+
+            .scrollable-table-container::-webkit-scrollbar {
+                width: 8px; /* Customize scrollbar width */
+            }
+
+            .scrollable-table-container::-webkit-scrollbar-thumb {
+                background-color: #888; /* Customize scrollbar color */
+                border-radius: 5px;
+            }
+
+            .scrollable-table-container::-webkit-scrollbar-thumb:hover {
+                background-color: #ffffff; /* Customize hover color */
             }
         </style>
     @endsection
@@ -87,6 +104,7 @@
                     <!-- Bloc gauche pour afficher les produits ajoutés -->
                     <div class="">
                         <h4 class="text-center">Produits ajoutés</h4>
+                        <div class="scrollable-table-container">
                         <table class="table table-bordered " style="width: 100%" id="productList">
                             <thead>
                             <tr>
@@ -100,6 +118,7 @@
                             <!-- Les produits ajoutés seront insérés ici -->
                             </tbody>
                         </table>
+                        </div>
                         <form action="{{ route('vente.store') }}" method="post">
                             @csrf
                             <input type="hidden" name="nom_client" value="-------" id="hiddenName">
@@ -147,6 +166,15 @@
 
                 let products = [];
                 let totalCommande = 0;
+
+                function toggleSubmitButton() {
+                    const totalValue = parseFloat(associatedTotalCommandeField.value) || 0;
+                    if (totalValue > 0) {
+                        submitOrderButton.style.display = 'block';
+                    } else {
+                        submitOrderButton.style.display = 'none';
+                    }
+                }
 
                 dropdown.addEventListener('change', (e)=>{
                     const selectedOption = e.target.options[e.target.selectedIndex]
@@ -227,14 +255,15 @@
                         hiddenFields.innerHTML += fields;
                     }
 
-                    const totalCommandeField = document.getElementById('total_commande')
+                    associatedTotalCommandeField.value = formatMontant(totalCommande);
+                    toggleSubmitButton();
                     // Réinitialiser le formulaire
                     dropdown.value = '';
                     associatedField.value = '';
                     inputNumber.value = '';
                     totalField.value = '';
                 });
-
+                toggleSubmitButton();
             })
         </script>
 @endsection

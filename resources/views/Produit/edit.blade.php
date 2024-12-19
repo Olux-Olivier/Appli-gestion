@@ -1,11 +1,3 @@
-<!DOCTYPE html>
-<html lang="fr">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Modifier Produit</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 
     @extends('base')
     @section('styles')
@@ -31,6 +23,27 @@
 
             .form {
                 width: 350px;
+            }
+            .animated-form {
+                opacity: 0;
+                transform: translateY(20px);
+                animation: fadeInUp 0.5s forwards;
+            }
+
+            @keyframes fadeInUp {
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+
+            .btn-primary {
+                transition: background-color 0.3s, transform 0.3s;
+            }
+
+            .btn-primary:hover {
+                background-color: #0056b3; /* Couleur plus foncée au survol */
+                transform: scale(1.05); /* Agrandissement léger au survol */
             }
         </style>
     @endsection
@@ -61,40 +74,12 @@
                             <input type="number" name="prix_unitaire" class="form-control" id="unitPrice"
                                    placeholder="Entrez le prix unitaire" value="{{ $produit->prix_unitaire }}" required>
                         </div>
-                        <div class="form-group">
-                            <label for="quantity">Quantité à Mettre en Stock</label>
-                            <input type="number" name="qte_stock" class="form-control" id="quantity"
-                                   placeholder="Entrez la quantité" value="{{ $produit->qte_stock }}" required>
-                        </div>
+
                         <button type="submit" class="btn btn-primary">Modifier le Produit</button>
                     </form>
                 </div>
             </div>
         </div>
-
-        <style>
-            .animated-form {
-                opacity: 0;
-                transform: translateY(20px);
-                animation: fadeInUp 0.5s forwards;
-            }
-
-            @keyframes fadeInUp {
-                to {
-                    opacity: 1;
-                    transform: translateY(0);
-                }
-            }
-
-            .btn-primary {
-                transition: background-color 0.3s, transform 0.3s;
-            }
-
-            .btn-primary:hover {
-                background-color: #0056b3; /* Couleur plus foncée au survol */
-                transform: scale(1.05); /* Agrandissement léger au survol */
-            }
-        </style>
     @endsection
 
     @section('scripts')
@@ -102,9 +87,3 @@
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     @endsection
-</head>
-
-<body>
-</body>
-
-</html>

@@ -34,7 +34,6 @@ class ProduitController extends Controller
         Produit::create([
             'nom' => $request->nom,
             'prix_unitaire' => $request->prix_unitaire,
-            'qte_stock' => $request->qte_stock
         ]);
         return redirect()->route('produit.create')->with(['success' => 'Le produit a ete Produit ajouté avec succes !']);
     }
@@ -65,7 +64,6 @@ class ProduitController extends Controller
             // Mettre à jour les informations
         $produit->nom = $request->nom;
         $produit->prix_unitaire = $request->prix_unitaire;
-        $produit->qte_stock = $request->qte_stock;
 
             // Sauvegarder les modifications
         $produit->save();

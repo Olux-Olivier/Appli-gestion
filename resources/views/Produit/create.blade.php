@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Formulaire d'Ajout de Produit</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 
 
 @extends('base')
@@ -55,10 +54,7 @@
                     <label for="unitPrice">Prix Unitaire (par kg)</label>
                     <input type="number" name="prix_unitaire" class="form-control" id="unitPrice" placeholder="Entrez le prix unitaire" required>
                 </div>
-                <div class="form-group">
-                    <label for="quantity">Quantité à Mettre en Stock</label>
-                    <input type="number" name="qte_stock" class="form-control" id="quantity" placeholder="Entrez la quantité" required>
-                </div>
+
                 <button type="submit" class="btn btn-primary">Ajouter le Produit</button>
             </form>
         </div>

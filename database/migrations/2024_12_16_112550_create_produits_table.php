@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('nom');
             $table->float('prix_unitaire');
-            $table->float('qte_stock');
+            $table->float('qte_stock')->nullable();
             $table->timestamps();
         });
     }

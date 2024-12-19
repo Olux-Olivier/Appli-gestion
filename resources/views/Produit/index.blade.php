@@ -29,6 +29,25 @@
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             text-align: center;
         }
+        .scrollable-table-container {
+            max-height: 600px; /* Adjust height as needed */
+            overflow-y: auto;
+            border: 1px solid #ddd; /* Optional for better visuals */
+            border-radius: 5px;
+        }
+
+        .scrollable-table-container::-webkit-scrollbar {
+            width: 8px; /* Customize scrollbar width */
+        }
+
+        .scrollable-table-container::-webkit-scrollbar-thumb {
+            background-color: #888; /* Customize scrollbar color */
+            border-radius: 5px;
+        }
+
+        .scrollable-table-container::-webkit-scrollbar-thumb:hover {
+            background-color: #ffffff; /* Customize hover color */
+        }
     </style>
 @endsection
 
@@ -40,6 +59,7 @@
         </div>
     @endif
     <h1 class="text-center mb-4">Liste des produits</h1>
+        <div class="scrollable-table-container">
     <table class="table table-striped animated-table">
         <thead class="table-dark">
             <tr>
@@ -65,6 +85,7 @@
             @endforeach
         </tbody>
     </table>
+        </div>
 </div>
 
 <div class="modal-overlay" id="confirmationModal">
