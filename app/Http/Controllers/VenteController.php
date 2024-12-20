@@ -31,7 +31,7 @@ class VenteController extends Controller
      */
     public function create()
     {
-        $produits = Produit::all();
+        $produits = Produit::orderBy('nom')->get();
         return view('vente.create', compact('produits'));
     }
 

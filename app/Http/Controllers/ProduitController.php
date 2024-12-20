@@ -14,7 +14,7 @@ class ProduitController extends Controller
      */
     public function index()
     {
-        $produits = Produit::all();
+        $produits = Produit::orderBy('nom')->get();
         return view('produit.index', compact('produits'));
     }
 
@@ -35,7 +35,7 @@ class ProduitController extends Controller
             'nom' => $request->nom,
             'prix_unitaire' => $request->prix_unitaire,
         ]);
-        return redirect()->route('produit.create')->with(['success' => 'Le produit a ete Produit ajouté avec succes !']);
+        return redirect()->route('produit.create')->with(['success' => 'Le produit a été ajouté avec succès !']);
     }
 
     /**
@@ -80,7 +80,7 @@ class ProduitController extends Controller
     {
         $produit->delete();
 
-        return redirect()->route('produit.index')->with(['success' => 'Le produit a ete supprimer avec succes !']);
+        return redirect()->route('produit.index')->with(['success' => 'Le produit a été supprimé avec succès !']);
     }
 
     public function statistiques(){

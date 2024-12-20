@@ -66,7 +66,6 @@
                 <th scope="col">#</th>
                 <th scope="col">Nom du produit</th>
                 <th scope="col">Prix unitaire</th>
-                <th scope="col">Quantité en stock</th>
                 <th scope="col">Actions</th>
             </tr>
         </thead>
@@ -76,7 +75,6 @@
                     <th scope="row">{{ $index + 1 }}</th>
                     <td>{{ $produit->nom }}</td>
                     <td>{{ number_format($produit->prix_unitaire, 2, ',', ' ') }} CDF</td>
-                    <td>{{ $produit->qte_stock }}</td>
                     <td>
                         <a href="{{route('produit.edit', $produit->id)}}" class="btn btn-primary btn-sm">Modifier</a>
                         <button class="btn btn-danger btn-sm" onclick="showModal({{ $produit->id }})">Supprimer</button>

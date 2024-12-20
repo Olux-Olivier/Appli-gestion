@@ -96,8 +96,8 @@
                 <td>{{$produit->nomclient}}</td>
                 <td> {{$produit->nom_produit}}</td>
                 <td>{{$produit->qte}} Kg</td>
-                <td>{{$produit->prix_unitaire}}</td>
-                <td>{{$produit->prix_total}}</td>
+                <td>{{number_format($produit->prix_unitaire, 2,',',' ')}} CDF</td>
+                <td>{{number_format($produit->prix_total, 2, ',', ' ')}} CDF</td>
 
             </tr>
         @endforeach
