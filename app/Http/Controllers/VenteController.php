@@ -170,10 +170,10 @@ class VenteController extends Controller
             $printer->text("Reçu de paiement\n");
             $printer->text("\n");
             $printer->setTextSize(1, 1);
-            $printer->text("Client : ". $vente->nom_client."\n");
+            $printer->text("Client : ". $vente->nomclient."\n");
             $VenteTotal = 0;
             foreach ($ventes as $product) {
-                $productName = $product->nomclient;
+                $productName = Produit::where('id', $product->produit_id)->value('nom');
                 $quantity = $product->qte;
                 $unitPrice = $product->prix_unitaire;
                 $total = $product->prix_total;
