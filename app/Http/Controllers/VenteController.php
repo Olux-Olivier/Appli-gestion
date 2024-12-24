@@ -22,8 +22,9 @@ class VenteController extends Controller
             ->orderBy('ventes.created_at', 'desc')
             ->get();
 
+        $ventesGrouped = $ventes->groupBy('code_vente');
 
-        return view('vente.index', compact('ventes'));
+        return view('vente.index', compact('ventesGrouped'));
     }
 
     /**
@@ -74,6 +75,7 @@ class VenteController extends Controller
             $printer->text("\n");
             $printer->setTextSize(1, 1);
             $printer->text("Client : ". $request->nom_client."\n");
+
             foreach ($request->products as $product) {
                 $productName = $product['name'];
                 $quantity = $product['quantity'];
@@ -105,7 +107,6 @@ class VenteController extends Controller
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()]);
         }
-
         return redirect()->route('vente.create');
 
     }
@@ -126,6 +127,7 @@ class VenteController extends Controller
         //
     }
 
+
     /**
      * Update the specified resource in storage.
      */
@@ -139,7 +141,66 @@ class VenteController extends Controller
      */
     public function destroy(Vente $vente)
     {
-        //
+        $code = $vente->code_vente;
+        Vente::where('code_vente', $code)->delete();
+        return redirect()->route('vente.index');
+    }
+
+    public function imprimer(Vente $vente)
+    {
+        $code = $vente->code_vente;
+        $ventes = Vente::where('code_vente', $code)->get();
+
+        try {
+            // Nom partagé de l'imprimante (configuré sur votre ordinateur)
+            $connector = new \Mike42\Escpos\PrintConnectors\WindowsPrintConnector("POS-80");
+
+            // Initialisation de l'imprimante
+            $printer = new \Mike42\Escpos\Printer($connector);
+
+            // Contenu à imprimer
+            $printer->setTextSize(2,2);
+            $printer->text("Boucherie TROIS R\n");
+            $printer->setTextSize(1,1);
+            $printer->text("Adresse : Num 540, Route Kipopo, Q\ Golf malela, V\ L'shi\n");
+            $printer->setTextSize(2,2);
+            $printer->text("------------------------\n");
+            $printer->setTextSize(2, 2); // Taille du texte
+            $printer->text("\n");
+            $printer->text("Reçu de paiement\n");
+            $printer->text("\n");
+            $printer->setTextSize(1, 1);
+            $printer->text("Client : ". $vente->nomclient."\n");
+            $VenteTotal = 0;
+            foreach ($ventes as $product) {
+                $productName = Produit::where('id', $product->produit_id)->value('nom');
+                $quantity = $product->qte;
+                $unitPrice = $product->prix_unitaire;
+                $total = $product->prix_total;
+                $VenteTotal += $quantity * $unitPrice;
+                $printer->text("Désignation : ". $productName ."\n");
+                $printer->text( "Quantité : ".$quantity ." (kg) \n" );
+                $printer->text( "Prix Unitaire : ".number_format( $unitPrice,2, ',',' ') ." CDF\n") ;
+                $printer->text( "Total : ". number_format( $total, 2,',', ' ') ." CDF\n");
+                $printer->text("-------------------------------------\n");
+            }
+
+
+            $printer->text("\n");
+            $printer->text("Total à payer : ". number_format($VenteTotal, 2, ',', ' ') ." CDF \n");
+            $printer->text("\n");
+            $printer->text("Date : " . date('d/m/Y') . "\n");
+            $printer->text("-------------------------------------\n");
+            $printer->text("Merci pour votre humble visite  !\n");
+            $printer->feed(2); // Ajoute des espaces
+            $printer->cut();
+
+            // Ferme la connexion
+            $printer->close();
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()]);
+        }
+        return redirect()->route('vente.index');
     }
 
     public function statistiques()

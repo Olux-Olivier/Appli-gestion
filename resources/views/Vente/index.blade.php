@@ -66,6 +66,31 @@
             background-color: #ffffff; /* Customize hover color */
         }
 
+        .modal-overlay {
+            display: none; /* Masquer par défaut */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            padding: 250px;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+            transform: translateY(-20px);
+            opacity: 0;
+            text-align: center;
+            animation: modalFadeIn 0.5s forwards;
+        }
+
     </style>
 @endsection
 
@@ -78,37 +103,92 @@
     @endif
     <h1 class="text-center mb-4">Ventes du jour</h1>
         <div class="scrollable-table-container">
-    <table class="table table-striped animated-table">
-        <thead class="table-dark">
-            <tr>
-                <th scope="col">#</th>
-                <th scope="col">Nom client</th>
-                <th scope="col">Produit vendu</th>
-                <th scope="col">Quantité (Kg)</th>
-                <th scope="col">Prix unitaire</th>
-                <th scope="col">Total</th>
-            </tr>
-        </thead>
-        <tbody>
-        @foreach($ventes as $index => $produit)
-            <tr class="animated-row">
-                <th scope="row">{{$index + 1}}</th>
-                <td>{{$produit->nomclient}}</td>
-                <td> {{$produit->nom_produit}}</td>
-                <td>{{$produit->qte}} Kg</td>
-                <td>{{number_format($produit->prix_unitaire, 2,',',' ')}} CDF</td>
-                <td>{{number_format($produit->prix_total, 2, ',', ' ')}} CDF</td>
+            <table class="table table-striped animated-table">
+                <thead class="table-dark">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Nom client</th>
+                    <th scope="col">Produit vendu</th>
+                    <th scope="col">Quantité (Kg)</th>
+                    <th scope="col">Prix unitaire</th>
+                    <th scope="col">Total</th>
+                    <th scope="col">Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                @php $index = 0; @endphp
+                @foreach($ventesGrouped as $codeVente => $produits)
+                    @php
+                        $rowCount = count($produits);
+                        $firstProduit = $produits->first();
+                    @endphp
+                    @foreach($produits as $produit)
+                        <tr class="animated-row">
+                            @if ($loop->first)
+                                <th scope="row" rowspan="{{ $rowCount }}">{{ ++$index }}</th>
+                                <td rowspan="{{ $rowCount }}">{{ $firstProduit->nomclient }}</td>
+                            @endif
+                            <td>{{ $produit->nom_produit }}</td>
+                            <td>{{ $produit->qte }} Kg</td>
+                            <td>{{ number_format($produit->prix_unitaire, 2, ',', ' ') }} CDF</td>
+                            <td>{{ number_format($produit->prix_total, 2, ',', ' ') }} CDF</td>
+                            @if ($loop->first)
+                                <td rowspan="{{ $rowCount }}">
 
-            </tr>
-        @endforeach
+                                    <button class="btn btn-danger btn-sm" onclick="showModal({{ $produit->id }})">Supprimer</button>
+                                    <form class="d-inline" action="{{route('vente.imprimer',['vente' => $produit->id])}}" method="get">
+                                        <button class="btn btn-primary btn-sm">Imprimer</button>
+                                    </form>
 
-        </tbody>
-    </table>
+                                </td>
+                            @endif
+                        </tr>
+                    @endforeach
+                @endforeach
+                </tbody>
+            </table>
         </div>
+
+</div>
+<div class="modal-overlay" id="confirmationModal">
+    <div class="modal-content animated-modal">
+        <h5>Confirmer la suppression</h5>
+        <p>Êtes-vous sûr de vouloir supprimer cette vente ?</p>
+        <div class="mt-3">
+            <button class="btn btn-secondary" onclick="closeModal()">Annuler</button>
+            <button class="btn btn-danger" id="confirmDeleteBtn">Supprimer</button>
+        </div>
+    </div>
 </div>
 
 @endsection
 
 @section('scripts')
+    <script>
+    function closeModal() {
+    document.getElementById('confirmationModal').style.display = 'none';
+    }
 
+    let currentProductId = null;
+
+    function showModal(productId) {
+        document.getElementById('confirmationModal').style.display = 'flex';
+        currentProductId = productId;
+
+        document.getElementById('confirmationModal').style.display = 'flex';
+    }
+
+    // function closeModal() {
+    //     document.getElementById('confirmationModal').style.display = 'none';
+    //     currentProductId = null;
+    // }
+
+    document.getElementById('confirmDeleteBtn').addEventListener('click', function () {
+        console.log(currentProductId)
+        if (currentProductId) {
+
+        window.location.href = `/vente-destroy/${currentProductId}`;
+    }
+    });
+    </script>
 @endsection

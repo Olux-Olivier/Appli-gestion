@@ -16,11 +16,11 @@ Route::get('/produit/statistiques', [\App\Http\Controllers\ProduitController::cl
 
 Route::resource('produit',\App\Http\Controllers\ProduitController::class)->middleware('auth');
 Route::get('/produit-destroy/{produit}',[\App\Http\Controllers\ProduitController::class,'destroy'])->middleware('auth');
-
+Route::get('/vente-imprimer/{vente}',[\App\Http\Controllers\VenteController::class,'imprimer'])->name('vente.imprimer')->middleware('auth');
 Route::resource('vente',\App\Http\Controllers\VenteController::class)->middleware('auth');
 Route::post('/vente-store',[\App\Http\Controllers\VenteController::class,'store'])->name('vente.store')->middleware('auth');
 Route::get('/vente/statistiques',[\App\Http\Controllers\VenteController::class,'statistiques'])->name('vente.statistiques')->middleware('auth');
-
+Route::get('/vente-destroy/{vente}',[\App\Http\Controllers\VenteController::class,'destroy'])->middleware('auth');
 Route::get('/login',[AuthController::class, 'index'])->name('index');
 Route::post('/login',[AuthController::class,'login'])->name('login');
 Route::get('/logout',[AuthController::class,'logout'])->name('logout');
