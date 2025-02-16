@@ -160,7 +160,7 @@ class VenteController extends Controller
 
             // Contenu à imprimer
             $printer->setTextSize(2,2);
-            $printer->text("Boucherie TROIS R\n");
+            $printer->text("RESTAURANT TROIS R\n");
             $printer->setTextSize(1,1);
             $printer->text("Adresse : Boulevard katuba coin avenue ABC, Q\ Salama, V\ L'shi\n");
             $printer->setTextSize(2,2);
