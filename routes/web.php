@@ -27,7 +27,7 @@ Route::get('/logout',[AuthController::class,'logout'])->name('logout');
 Route::get('/create-user',function(){
     \App\Models\User::create([
         'name' => 'utilisateur',
-        'email' => 'boucherie3R@gmail.com',
+        'email' => 'Restaurant3R@gmail.com',
         'password' => \Illuminate\Support\Facades\Hash::make('3r2025r3'),
     ]);
 });
