@@ -41,7 +41,7 @@
 <div class="d-flex">
     <div class="sidebar p-4">
         <h2>
-            <i class="fas fa-drumstick-bite"></i> Boucherie TROIS R.
+            <i class="fas fa-drumstick-bite"></i> Restaurant TROIS R.
         </h2>
         <ul class="list-unstyled mt-4">
             <li class="mt-2"><a href="{{ route('produit.create') }}" class="btn ">Ajouter un Produit</a></li>

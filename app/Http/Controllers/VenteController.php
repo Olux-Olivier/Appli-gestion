@@ -66,7 +66,7 @@ class VenteController extends Controller
             $printer->setTextSize(2,2);
             $printer->text("Restaurant TROIS R\n");
             $printer->setTextSize(1,1);
-            $printer->text("Adresse : Num 540, Boulevard Katuba, Av\ ABC, V\ L'shi\n");
+            $printer->text("Adresse : Boulevard Katuba, Avenue ABC, Q/Salama, V\ L'shi\n");
             $printer->setTextSize(2,2);
             $printer->text("------------------------\n");
             $printer->setTextSize(2, 2); // Taille du texte
@@ -162,7 +162,7 @@ class VenteController extends Controller
             $printer->setTextSize(2,2);
             $printer->text("Restaurant TROIS R\n");
             $printer->setTextSize(1,1);
-            $printer->text("Adresse : Num 540, Boulevard Katuba, Av\ ABC, V\ L'shi\n");
+            $printer->text("Adresse : Boulevard Katuba, Avenue ABC, Q/Salama, V\ L'shi\n");
             $printer->setTextSize(2,2);
             $printer->text("------------------------\n");
             $printer->setTextSize(2, 2); // Taille du texte
