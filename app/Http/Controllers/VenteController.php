@@ -57,7 +57,7 @@ class VenteController extends Controller
 
         try {
             // Nom partagé de l'imprimante (configuré sur votre ordinateur)
-            $connector = new \Mike42\Escpos\PrintConnectors\WindowsPrintConnector("POS-80");
+            $connector = new \Mike42\Escpos\PrintConnectors\WindowsPrintConnector("POS-90");
 
             // Initialisation de l'imprimante
             $printer = new \Mike42\Escpos\Printer($connector);
@@ -111,34 +111,6 @@ class VenteController extends Controller
 
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Vente $vente)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Vente $vente)
-    {
-        //
-    }
-
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Vente $vente)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Vente $vente)
     {
         $code = $vente->code_vente;
@@ -153,7 +125,7 @@ class VenteController extends Controller
 
         try {
             // Nom partagé de l'imprimante (configuré sur votre ordinateur)
-            $connector = new \Mike42\Escpos\PrintConnectors\WindowsPrintConnector("POS-80");
+            $connector = new \Mike42\Escpos\PrintConnectors\WindowsPrintConnector("POS-90");
 
             // Initialisation de l'imprimante
             $printer = new \Mike42\Escpos\Printer($connector);
