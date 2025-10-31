@@ -92,7 +92,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="quantity">Prix total</label>
-                                <input type="number" name="qte_stock" class="form-control" id="totalField" placeholder="Entrez la quantité" readonly>
+                                <input type="number" name="qte_stock" class="form-control" id="totalField" placeholder="Prix total" readonly>
                             </div>
                             <button type="button" id="addProduct" class="btn btn-primary">Ajouter le Produit</button>
 
