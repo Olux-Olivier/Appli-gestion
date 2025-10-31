@@ -133,7 +133,7 @@ class VenteController extends Controller
             $printer = new \Mike42\Escpos\Printer($connector);
 
             // Contenu à imprimer
-            $printer->setTextSize(2,2)
+            $printer->setTextSize(2,2);
             $printer->text("RESTAURANT TROIS R\n");
             $printer->setTextSize(1,1);
             $printer->text("Adresse : Boulevard katuba coin avenue ABC, Q\ Salama, V\ L'shi\n");
